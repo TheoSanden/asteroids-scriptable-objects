@@ -9,24 +9,24 @@ namespace Ship
     {
         [SerializeField] private FloatVariable _throttlePower;
         [SerializeField] private FloatVariable _rotationPower;
-        
+
         [SerializeField] private float _throttlePowerSimple;
         [SerializeField] private float _rotationPowerSimple;
 
         private Rigidbody2D _rigidbody;
-        
+
         private void FixedUpdate()
         {
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetAxis("Vertical") > 0)
             {
                 Throttle();
             }
-        
-            if (Input.GetKey(KeyCode.LeftArrow))
+
+            if (Input.GetAxis("Horizontal") < 0)
             {
                 SteerLeft();
-            } 
-            else if (Input.GetKey(KeyCode.RightArrow))
+            }
+            else if (Input.GetAxis("Horizontal") > 0)
             {
                 SteerRight();
             }
@@ -36,7 +36,7 @@ namespace Ship
         {
             _rigidbody = GetComponent<Rigidbody2D>();
         }
-    
+
         public void Throttle()
         {
             _rigidbody.AddForce(transform.up * _throttlePower.Value, ForceMode2D.Force);
