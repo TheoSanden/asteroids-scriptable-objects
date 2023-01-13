@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Tools/PaletteGenerator/Ui/PaletteGenerator.uss?fileID=7433441132597879392&amp;guid=e53f633271a878546aba95e4be2573a7&amp;type=3#PaletteGenerator" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <uie:ColorField label="Color 1" value="RGBA(0.000, 1.000, 1.000, 1.000)" binding-path="color0" class="ColorField" />
+            <uie:ColorField label="Color 2" value="RGBA(0.000, 1.000, 1.000, 1.000)" binding-path="color1" focusable="true" class="ColorField" />
+            <uie:ColorField label="Color 3" value="RGBA(0.000, 1.000, 1.000, 1.000)" binding-path="color2" class="ColorField" />
+            <uie:ColorField label="Color 4" value="RGBA(0.000, 1.000, 1.000, 1.000)" binding-path="color3" class="ColorField" />
+            <uie:ColorField label="Color 5" value="RGBA(0.000, 1.000, 1.000, 1.000)" binding-path="color4" class="ColorField" />
+            <uie:ColorField label="Background" value="RGBA(0.000, 1.000, 1.000, 1.000)" binding-path="color5" class="ColorField" />
+            <ui:TextField picking-mode="Ignore" label="File Name" value="filler text" name="path" binding-path="fileName" />
+            <ui:Button text="Generate" display-tooltip-when-elided="true" name="Generate" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

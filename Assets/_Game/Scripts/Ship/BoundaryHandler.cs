@@ -36,7 +36,6 @@ public class BoundaryHandler : MonoBehaviour
     {
         if (renderer == null)
         {
-            Debug.Log("No render");
             return;
         }
         var bounds = renderer.bounds;
