@@ -6,7 +6,7 @@ namespace Variables
     [CreateAssetMenu(fileName = "new FloatVariable", menuName = "ScriptableObjects/Variables/FloatVariable")]
     public class FloatVariable : ScriptableObject
     {
-        [Range(0f, 10f)]
+        [Range(0f, 500f)]
         [SerializeField] private float _value;
 
         public float Value => _value;
