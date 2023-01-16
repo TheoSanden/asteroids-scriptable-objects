@@ -65,13 +65,12 @@ public class BezierCurve
     {
         Recalculate();
     }
-    public BezierCurve(Vector3 _p0,Vector3 _p1,Vector3 _p2, Vector3 _p3, int _detail, EasingFunction.Ease easing)
+    public BezierCurve(Vector3 _p0, Vector3 _p1, Vector3 _p2, Vector3 _p3, int _detail, EasingFunction.Ease easing)
     {
         p0 = _p0;
         p1 = _p1;
         p2 = _p2;
         p3 = _p3;
-        Debug.Log(_detail);
         detail = _detail;
         PointSpacing = easing;
         Recalculate();
@@ -92,9 +91,9 @@ public class BezierCurve
     public EasingFunction.Ease PointSpacing
     {
         get => pointSpacing;
-        set 
+        set
         {
-            pointSpacing = value; pointSpacingFunction = EasingFunction.GetEasingFunction(value); Recalculate(); 
+            pointSpacing = value; pointSpacingFunction = EasingFunction.GetEasingFunction(value); Recalculate();
         }
     }
     [SerializeField, HideInInspector]
@@ -115,7 +114,7 @@ public class BezierCurve
     private Vector3[] pointsInCurve = new Vector3[0];
     [SerializeField, HideInInspector]
     private Vector3[] pointsInCurveEased = new Vector3[0];
-    public Vector3[] PointsInCurveEased 
+    public Vector3[] PointsInCurveEased
     {
         get => pointsInCurveEased;
     }
@@ -205,70 +204,70 @@ public class BezierCurve
         Vector3 point = GetPoint(easedTime);
         return point;
     }
-/*
-    #region  Screen Size Scaler
-    private void OnEnable()
-    {
-        if (WindowManager.instance != null) { WindowManager.instance.onScreenSizeChange += OnScreenSizeChange; }
-        // referencePositionLastUpdate = FindObjectOfType<Canvas>().transform.position;
-    }
-    private void OnDisable()
-    {
-        if (WindowManager.instance != null) { WindowManager.instance.onScreenSizeChange -= OnScreenSizeChange; }
-    }
-    private void OnScreenSizeChange(int width, int height)
-    {
-        if (referenceScreenSize.x != width || referenceScreenSize.y != height)
+    /*
+        #region  Screen Size Scaler
+        private void OnEnable()
         {
-            ScaleToScreenSize(width, height);
-            Recalculate();
+            if (WindowManager.instance != null) { WindowManager.instance.onScreenSizeChange += OnScreenSizeChange; }
+            // referencePositionLastUpdate = FindObjectOfType<Canvas>().transform.position;
         }
-    }
-    //fix: set canvas reference somewhere else;
-    private void ScaleToScreenSize(int width, int height)
-    {
-        Canvas canvas = FindObjectOfType<Canvas>();
-        Vector3 referencePosition = canvas.transform.position;
-
-        float xMod = (float)width / referenceScreenSize.x, yMod = (float)height / referenceScreenSize.y;
-        Vector3 p0D = p0 - referencePositionLastUpdate;
-        Vector3 p1D = p1 - referencePositionLastUpdate;
-        Vector3 p2D = p2 - referencePositionLastUpdate;
-        Vector3 p3D = p3 - referencePositionLastUpdate;
-
-        p0 = referencePosition + new Vector3(p0D.x * xMod, p0D.y * yMod);
-        p1 = referencePosition + new Vector3(p1D.x * xMod, p1D.y * yMod);
-        p2 = referencePosition + new Vector3(p2D.x * xMod, p2D.y * yMod);
-        p3 = referencePosition + new Vector3(p3D.x * xMod, p3D.y * yMod);
-
-        referenceScreenSize = new Vector2(width, height);
-        referencePositionLastUpdate = referencePosition;
-    }
-
-    #endregion
-#if UNITY_EDITOR
-    public void DrawHandles()
-    {
-        Vector3[] points = { P0, P1, P2, P3 };
-        Handles.DrawAAPolyLine(points[0..2]);
-        Handles.DrawAAPolyLine(points[2..4]);
-
-        if (pointsInCurveEased.Length > 0 && draw)
+        private void OnDisable()
         {
-            for (int i = 1; i < pointsInCurveEased.Length; i++)
+            if (WindowManager.instance != null) { WindowManager.instance.onScreenSizeChange -= OnScreenSizeChange; }
+        }
+        private void OnScreenSizeChange(int width, int height)
+        {
+            if (referenceScreenSize.x != width || referenceScreenSize.y != height)
             {
-                float segmentMag = Mathf.Abs((pointsInCurveEased[i] - pointsInCurveEased[i - 1]).magnitude);
-                Gizmos.color = Handles.color = Color.Lerp(Color.yellow, Color.magenta, segmentMag / maxMag);
-                Gizmos.DrawLine(pointsInCurveEased[i], pointsInCurveEased[i - 1]);
-                Handles.DrawWireDisc(pointsInCurveEased[i], Vector3.forward, HandleUtility.GetHandleSize(pointsInCurveEased[i]) * 0.04f);
+                ScaleToScreenSize(width, height);
+                Recalculate();
             }
         }
-    }
+        //fix: set canvas reference somewhere else;
+        private void ScaleToScreenSize(int width, int height)
+        {
+            Canvas canvas = FindObjectOfType<Canvas>();
+            Vector3 referencePosition = canvas.transform.position;
 
-    private void OnDrawGizmos()
-    {
-        DrawHandles();
-    }
-#endif
-*/
+            float xMod = (float)width / referenceScreenSize.x, yMod = (float)height / referenceScreenSize.y;
+            Vector3 p0D = p0 - referencePositionLastUpdate;
+            Vector3 p1D = p1 - referencePositionLastUpdate;
+            Vector3 p2D = p2 - referencePositionLastUpdate;
+            Vector3 p3D = p3 - referencePositionLastUpdate;
+
+            p0 = referencePosition + new Vector3(p0D.x * xMod, p0D.y * yMod);
+            p1 = referencePosition + new Vector3(p1D.x * xMod, p1D.y * yMod);
+            p2 = referencePosition + new Vector3(p2D.x * xMod, p2D.y * yMod);
+            p3 = referencePosition + new Vector3(p3D.x * xMod, p3D.y * yMod);
+
+            referenceScreenSize = new Vector2(width, height);
+            referencePositionLastUpdate = referencePosition;
+        }
+
+        #endregion
+    #if UNITY_EDITOR
+        public void DrawHandles()
+        {
+            Vector3[] points = { P0, P1, P2, P3 };
+            Handles.DrawAAPolyLine(points[0..2]);
+            Handles.DrawAAPolyLine(points[2..4]);
+
+            if (pointsInCurveEased.Length > 0 && draw)
+            {
+                for (int i = 1; i < pointsInCurveEased.Length; i++)
+                {
+                    float segmentMag = Mathf.Abs((pointsInCurveEased[i] - pointsInCurveEased[i - 1]).magnitude);
+                    Gizmos.color = Handles.color = Color.Lerp(Color.yellow, Color.magenta, segmentMag / maxMag);
+                    Gizmos.DrawLine(pointsInCurveEased[i], pointsInCurveEased[i - 1]);
+                    Handles.DrawWireDisc(pointsInCurveEased[i], Vector3.forward, HandleUtility.GetHandleSize(pointsInCurveEased[i]) * 0.04f);
+                }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            DrawHandles();
+        }
+    #endif
+    */
 }

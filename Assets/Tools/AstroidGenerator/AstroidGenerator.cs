@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class AstroidGenerator : MonoBehaviour
 {
-    [SerializeField,Range(0.0f, 1.0f)]
+    [SerializeField, Range(0.0f, 1.0f)]
     float maxSize;
-    [SerializeField,Range(0.0f, 1.0f)]
+    [SerializeField, Range(0.0f, 1.0f)]
     float variation;
     [SerializeField, Range(0.0f, 20f)]
     int detail;
@@ -20,10 +20,12 @@ public class AstroidGenerator : MonoBehaviour
     Vector3[] unitPoints;
     Vector3[] splinePoints;
     RasterizeSpline rast;
+    AstroidTextureGenerator texGen;
     [ExecuteInEditMode]
     private void OnEnable()
     {
         rast = new RasterizeSpline();
+        texGen = new AstroidTextureGenerator();
     }
     private void OnDrawGizmosSelected()
     {
@@ -33,11 +35,10 @@ public class AstroidGenerator : MonoBehaviour
         Handles.DrawAAPolyLine(points);
     }
     [ContextMenu("Rasterize")]
-    void Rasterize() 
+    void Rasterize()
     {
-        if(rast == null){ rast = new RasterizeSpline(); }
+        if (rast == null) { rast = new RasterizeSpline(); }
         rast.Rasterize(points);
-        rast.WriteToFile();
     }
     [ContextMenu("Generate Points")]
     void GeneratePoints()
@@ -61,14 +62,14 @@ public class AstroidGenerator : MonoBehaviour
         Vector3 p0, p1, p2, p3;
         List<Vector3> bezPoints = new List<Vector3>();
         int startIndex = 0;
-        for(int i = 0; i < detail; i++)
+        for (int i = 0; i < detail; i++)
         {
             startIndex = i * 3;
             p0 = _points[startIndex];
             p1 = _points[startIndex + 1];
             p2 = _points[startIndex + 2];
             p3 = _points[startIndex + 3];
-            BezierCurve bez = new BezierCurve(p0,p1,p2,p3, bezierDetail, EasingFunction.Ease.Linear);
+            BezierCurve bez = new BezierCurve(p0, p1, p2, p3, bezierDetail, EasingFunction.Ease.Linear);
             bezPoints.AddRange(bez.PointsInCurveEased);
         }
         return bezPoints.ToArray();
@@ -79,15 +80,15 @@ public class AstroidGenerator : MonoBehaviour
         Vector3 center = Vector3.zero;
         int controlPointDetail = detail;
         Vector3[] _points = new Vector3[controlPointDetail];
-        for(int i = 0; i < controlPointDetail; i++)
+        for (int i = 0; i < controlPointDetail; i++)
         {
-            _points[i] = GetPointOnUnitCircle(i *(360.0f/ controlPointDetail));
+            _points[i] = GetPointOnUnitCircle(i * (360.0f / controlPointDetail));
         }
         return _points;
     }
     private void RandomizeMagnitude(ref Vector3[] p_points)
     {
-        for(int i= 0; i < p_points.Length;i++)
+        for (int i = 0; i < p_points.Length; i++)
         {
             float magnitude = 0.5f + (Random.Range(0.0f, 0.5f * variation) * RandomSign());
             magnitude *= maxSize;
@@ -123,19 +124,19 @@ public class AstroidGenerator : MonoBehaviour
     }
     private int RandomSign()
     {
-          return Random.value < .5? 1 : -1;
+        return Random.value < .5 ? 1 : -1;
     }
     private Vector3[] GetSplinePoints(Vector3[] unitPoints)
     {
         List<Vector3> points = new List<Vector3>();
         Vector3 lastPoint = Vector3.zero;
-        for(int i = 0; i < unitPoints.Length; i++) 
+        for (int i = 0; i < unitPoints.Length; i++)
         {
             Vector3 left, middle, right;
             left = (i == 0) ? unitPoints[unitPoints.Length - 1] : unitPoints[i - 1];
             middle = unitPoints[i];
             right = (i == unitPoints.Length - 1) ? unitPoints[0] : unitPoints[i + 1];
-            Vector3[] tangentPoints = GetTangentPoints(left,middle,right);
+            Vector3[] tangentPoints = GetTangentPoints(left, middle, right);
             if (i == 0)
             {
                 points.Add(unitPoints[i]);
@@ -143,7 +144,7 @@ public class AstroidGenerator : MonoBehaviour
                 lastPoint = tangentPoints[0];
                 continue;
             }
-            else if (i == unitPoints.Length -1) 
+            else if (i == unitPoints.Length - 1)
             {
                 points.Add(tangentPoints[0]);
                 points.Add(unitPoints[i]);
@@ -158,7 +159,7 @@ public class AstroidGenerator : MonoBehaviour
         }
         return points.ToArray();
     }
-    private Vector3[] GetTangentPoints(Vector3 left, Vector3 middle,Vector3 right)
+    private Vector3[] GetTangentPoints(Vector3 left, Vector3 middle, Vector3 right)
     {
         Handles.matrix = this.transform.localToWorldMatrix;
         Vector3[] tangents = new Vector3[2];
