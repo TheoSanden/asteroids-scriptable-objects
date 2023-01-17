@@ -20,12 +20,13 @@ public class AstroidGenerator : MonoBehaviour
     Vector3[] unitPoints;
     Vector3[] splinePoints;
     RasterizeSpline rast;
-    AstroidTextureGenerator texGen;
+    AstroidTextureGenerator texGenerator;
+    //AstroidTextureGenerator texGen;
     [ExecuteInEditMode]
     private void OnEnable()
     {
         rast = new RasterizeSpline();
-        texGen = new AstroidTextureGenerator();
+        texGenerator = new AstroidTextureGenerator();
     }
     private void OnDrawGizmosSelected()
     {
@@ -38,7 +39,10 @@ public class AstroidGenerator : MonoBehaviour
     void Rasterize()
     {
         if (rast == null) { rast = new RasterizeSpline(); }
+        if(texGenerator == null) { texGenerator = new AstroidTextureGenerator(); }
         rast.Rasterize(points);
+        texGenerator.GenerateTexture();
+        rast.FillWithTexture(texGenerator.CurrentWorkload);
     }
     [ContextMenu("Generate Points")]
     void GeneratePoints()
