@@ -13,10 +13,10 @@ public class AstroidTextureGenerator
     [SerializeField]
     float tilingAmount = 1;
     [SerializeField]
-    Vector2 offset = new Vector2(0.5f,0.5f);
+    Vector2 offset = new Vector2(0.5f, 0.5f);
     [SerializeField]
     Texture2D currentWorkload;
-    public Texture2D CurrentWorkload 
+    public Texture2D CurrentWorkload
     {
         get => currentWorkload;
     }
@@ -24,7 +24,7 @@ public class AstroidTextureGenerator
     Texture2D resourceTexture;
     public void GenerateTexture()
     {
-        if (!resourceTexture) { resourceTexture = Resources.Load<Texture2D>("AstroidGenerator/Rasterize/AstroidBumpMap");}
+        if (!resourceTexture) { resourceTexture = Resources.Load<Texture2D>("AstroidGenerator/Rasterize/AstroidBumpMap"); }
         currentWorkload = new Texture2D(resolution, resolution);
         int resourceResolution = resourceTexture.height;
         int pixelConversion = resourceResolution / resolution;
@@ -57,11 +57,6 @@ public class AstroidTextureGenerator
         }
         currentWorkload.filterMode = FilterMode.Point;
         currentWorkload.Apply();
-    }
-    public void WriteTextureToFile() 
-    {
-        if (!currentWorkload) return;
-        File.WriteAllBytes("Assets/Tools/AstroidGenerator/BumpMap/" + "Preview" + ".png", currentWorkload.EncodeToPNG());
     }
     Vector2 GetPointInUnitCircle(float angle)
     {

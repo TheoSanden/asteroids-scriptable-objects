@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class AstroidGenerator : MonoBehaviour
 {
-    [SerializeField, Range(0.0f, 1.0f)]
-    float maxSize;
-    [SerializeField, Range(0.0f, 1.0f)]
-    float variation;
+    [SerializeField]
+    Vector2 size;
     [SerializeField, Range(0.0f, 20f)]
     int detail;
     [SerializeField, Range(0.0f, 0.09f)]
@@ -39,10 +37,12 @@ public class AstroidGenerator : MonoBehaviour
     void Rasterize()
     {
         if (rast == null) { rast = new RasterizeSpline(); }
-        if(texGenerator == null) { texGenerator = new AstroidTextureGenerator(); }
+        if (texGenerator == null) { texGenerator = new AstroidTextureGenerator(); }
         rast.Rasterize(points);
         texGenerator.GenerateTexture();
-        rast.FillWithTexture(texGenerator.CurrentWorkload);
+        Texture2D output = rast.CurrentWorkload;
+        TextureUtilities.FillWithTexture(output, texGenerator.CurrentWorkload, 32, 32, output.GetPixel(32, 32));
+        TextureUtilities.WriteTextureToFile(output, "Output", "Assets/Tools/AstroidGenerator/Sprites/");
     }
     [ContextMenu("Generate Points")]
     void GeneratePoints()
@@ -94,8 +94,9 @@ public class AstroidGenerator : MonoBehaviour
     {
         for (int i = 0; i < p_points.Length; i++)
         {
-            float magnitude = 0.5f + (Random.Range(0.0f, 0.5f * variation) * RandomSign());
-            magnitude *= maxSize;
+            float avarage = (size.x + size.y / 2);
+            float delta = size.y - size.x;
+            float magnitude = avarage + (Random.Range(0.0f, delta) * RandomSign());
             p_points[i] *= magnitude;
         }
     }
@@ -169,7 +170,7 @@ public class AstroidGenerator : MonoBehaviour
         Vector3[] tangents = new Vector3[2];
         Vector3 a = (left - middle).normalized;
         Vector3 b = (right - middle).normalized;
-        Vector3 baseLine = (a - b) * (smoothness * maxSize);
+        Vector3 baseLine = (a - b) * (smoothness * size.y);
         Vector3 tanA = middle + baseLine;
         Vector3 tanB = middle - baseLine;
         /*

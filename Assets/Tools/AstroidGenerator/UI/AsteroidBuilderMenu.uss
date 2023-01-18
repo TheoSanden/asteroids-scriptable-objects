@@ -1,0 +1,19 @@
+.Divider {
+    width: 50%;
+    height: 100%;
+}
+
+.Button {
+}
+
+.Button:hover {
+    scale: 1.02 1.02;
+    background-color: rgb(231, 231, 231);
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+}
+
+.Button:active {
+    background-color: rgb(135, 135, 135);
+    scale: 1 1;
+}

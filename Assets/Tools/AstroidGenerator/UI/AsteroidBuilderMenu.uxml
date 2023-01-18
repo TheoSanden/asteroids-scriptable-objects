@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Tools/AstroidGenerator/UI/AsteroidBuilderMenu.uss?fileID=7433441132597879392&amp;guid=9c6918bb81db2144c81a35a39e12d7be&amp;type=3#AsteroidBuilderMenu" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement name="InputFields" style="flex-grow: 4; background-color: rgb(71, 62, 75); flex-direction: row;">
+            <ui:VisualElement name="OutlineUI" class="Divider" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                <ui:VisualElement name="OutlinePreview" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UnityDefaultRuntimeTheme.tss?fileID=-3753015318093942961&amp;guid=a17ee1911787b724fbc2fe5112fc4077&amp;type=3#arrow-left&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:MinMaxSlider picking-mode="Ignore" label="Size" min-value="0" max-value="1" low-limit="0" high-limit="1" name="SizeVariation" />
+                <ui:Slider picking-mode="Ignore" label="Smoothness" value="42" high-value="100" name="Smoothness" show-input-field="true" />
+                <ui:Slider picking-mode="Ignore" label="Point Gravity" value="42" high-value="100" name="PointGravity" show-input-field="true" />
+                <ui:Button text="Generate Outline" display-tooltip-when-elided="true" name="GenerateOutline" class="Button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TextureUI" class="Divider" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                <ui:VisualElement name="TexturePreview" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UnityDefaultRuntimeTheme.tss?fileID=-1304905567622442630&amp;guid=a17ee1911787b724fbc2fe5112fc4077&amp;type=3#arrow-down@2x&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:Slider picking-mode="Ignore" label="Light Angle" value="42" high-value="100" name="LightAngle" />
+                <ui:FloatField label="Tiling" value="42.2" name="Tiling" />
+                <ui:Vector2Field label="Offset" name="Offset" />
+                <ui:Button text="Apply Texture" display-tooltip-when-elided="true" name="ApplyTexture" class="Button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="GenerateField" style="flex-grow: 1; background-color: rgb(71, 62, 75); justify-content: center;">
+            <ui:Button text="Save" display-tooltip-when-elided="true" name="Save" class="Button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
