@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Windows;
 using UnityEngine;
 
-public class AstroidTextureGenerator
+public class AstroidTextureGenerator: ScriptableObject
 {
     [SerializeField]
     const int resolution = 64;
@@ -15,17 +15,17 @@ public class AstroidTextureGenerator
     [SerializeField]
     Vector2 offset = new Vector2(0.5f, 0.5f);
     [SerializeField]
-    Texture2D currentWorkload;
-    public Texture2D CurrentWorkload
+    Texture2D workload;
+    public Texture2D Workload
     {
-        get => currentWorkload;
+        get => workload;
     }
     Texture2D tiledTexture;
     Texture2D resourceTexture;
     public void GenerateTexture()
     {
         if (!resourceTexture) { resourceTexture = Resources.Load<Texture2D>("AstroidGenerator/Rasterize/AstroidBumpMap"); }
-        currentWorkload = new Texture2D(resolution, resolution);
+        workload = new Texture2D(resolution, resolution);
         int resourceResolution = resourceTexture.height;
         int pixelConversion = resourceResolution / resolution;
         Vector2 readOffset = new Vector2(resourceResolution * offset.x, resourceResolution * offset.y);
@@ -52,11 +52,11 @@ public class AstroidTextureGenerator
                     case 3: newColor = Color.green; break;
                 }
                 col = newColor;
-                currentWorkload.SetPixel(x, y, col);
+                workload.SetPixel(x, y, col);
             }
         }
-        currentWorkload.filterMode = FilterMode.Point;
-        currentWorkload.Apply();
+        workload.filterMode = FilterMode.Point;
+        workload.Apply();
     }
     Vector2 GetPointInUnitCircle(float angle)
     {

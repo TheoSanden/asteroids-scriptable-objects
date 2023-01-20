@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
-public class AstroidGenerator : MonoBehaviour
+public class AstroidGenerator : ScriptableObject
 {
     [SerializeField]
     Vector2 size;
@@ -15,49 +14,52 @@ public class AstroidGenerator : MonoBehaviour
     [SerializeField, Range(0.0f, 1.0f)]
     float pointGravity;
     Vector3[] points;
+    public Vector3[] Points 
+    {
+        get => points;
+    }
+    [SerializeField]
+    Texture2D workload;
+    public Texture2D Workload 
+    {
+        get => workload;
+    }
+
+
     Vector3[] unitPoints;
     Vector3[] splinePoints;
-    RasterizeSpline rast;
+    RasterizeSpline rasterize;
     AstroidTextureGenerator texGenerator;
+    public AstroidTextureGenerator TexGenerator
+    {
+        get => texGenerator;
+    }
     //AstroidTextureGenerator texGen;
     [ExecuteInEditMode]
     private void OnEnable()
     {
-        rast = new RasterizeSpline();
+        rasterize = new RasterizeSpline();
         texGenerator = new AstroidTextureGenerator();
     }
-    private void OnDrawGizmosSelected()
+    public void GenerateOutline() 
     {
-        if (points == null || points.Length == 0) { return; }
-        Handles.matrix = Gizmos.matrix = transform.localToWorldMatrix;
-        Handles.color = Color.blue;
-        Handles.DrawAAPolyLine(points);
+        GeneratePoints();
+        rasterize.Rasterize(points);
+        workload = rasterize.Workload;
     }
-    [ContextMenu("Rasterize")]
-    void Rasterize()
+    public void ApplyTexture()
     {
-        if (rast == null) { rast = new RasterizeSpline(); }
-        if (texGenerator == null) { texGenerator = new AstroidTextureGenerator(); }
-        rast.Rasterize(points);
+        if (rasterize.Workload == null) { return; }
         texGenerator.GenerateTexture();
-        Texture2D output = rast.CurrentWorkload;
-        TextureUtilities.FillWithTexture(output, texGenerator.CurrentWorkload, 32, 32, output.GetPixel(32, 32));
-        TextureUtilities.WriteTextureToFile(output, "Output", "Assets/Tools/AstroidGenerator/Sprites/");
+        workload = rasterize.Workload;
+        TextureUtilities.FillWithTexture(workload,texGenerator.Workload,32,32,workload.GetPixel(32,32));
     }
-    [ContextMenu("Generate Points")]
-    void GeneratePoints()
+    private void GeneratePoints()
     {
         Vector3[] p = GenerateUnitPoints();
         RandomizeMagnitude(ref p);
         FlattenPoints(ref p);
         unitPoints = p;
-        splinePoints = GetSplinePoints(unitPoints);
-        points = GenerateBezierPoints(splinePoints);
-    }
-    [ContextMenu("FlattenSpline")]
-    void FlattenSpline()
-    {
-        FlattenPoints(ref unitPoints);
         splinePoints = GetSplinePoints(unitPoints);
         points = GenerateBezierPoints(splinePoints);
     }
@@ -166,21 +168,12 @@ public class AstroidGenerator : MonoBehaviour
     }
     private Vector3[] GetTangentPoints(Vector3 left, Vector3 middle, Vector3 right)
     {
-        Handles.matrix = this.transform.localToWorldMatrix;
         Vector3[] tangents = new Vector3[2];
         Vector3 a = (left - middle).normalized;
         Vector3 b = (right - middle).normalized;
         Vector3 baseLine = (a - b) * (smoothness * size.y);
         Vector3 tanA = middle + baseLine;
         Vector3 tanB = middle - baseLine;
-        /*
-        Handles.color = Color.green;
-        Handles.DrawLine(Vector3.zero, b);
-        Handles.DrawLine(Vector3.zero, a);
-        Handles.DrawLine(Vector3.zero,tanA);
-        Handles.DrawLine(Vector3.zero, tanB);
-        Handles.DrawLine(tanA, tanB);
-        */
         tangents[0] = tanA;
         tangents[1] = tanB;
         return tangents;

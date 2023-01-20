@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.Windows;
 using UnityEngine;
 
-public class RasterizeSpline
+public class RasterizeSpline: ScriptableObject
 {
     [SerializeField]
     const int resolution = 64;
-    Texture2D currentWorkload;
-    public Texture2D CurrentWorkload
+    [SerializeField]
+    Texture2D workload;
+    public Texture2D Workload
     {
-        get => currentWorkload;
+        get => workload;
     }
     public void Rasterize(Vector3[] points)
     {
@@ -22,6 +23,6 @@ public class RasterizeSpline
             tex.SetPixel((int)pointFromOrigo.x, (int)pointFromOrigo.y, new Color(255, 255, 0));
         }
         Color replacementColor = tex.GetPixel(resolution / 2, resolution / 2);
-        currentWorkload = tex;
+        workload = tex;
     }
 }
