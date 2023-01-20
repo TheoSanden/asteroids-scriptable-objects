@@ -23,7 +23,7 @@ namespace Ship
         bool additionalDash = false;
         private void FixedUpdate()
         {
-            UpdateDirection();
+            UpdateLookDirection();
             if (Input.GetAxis("Vertical") > 0)
             {
                 Throttle(1);
@@ -49,24 +49,14 @@ namespace Ship
             if (dashBuffer < 2 && dashing)
             {
                 additionalDash = true;
-                StartCoroutine(SetAfterSeconds(result => additionalDash = result, false, 0.2f));
+                StartCoroutine(SetAfterSeconds(result => additionalDash = result, false, 0.3f));
                 return;
             }
-            if (dashBuffer == 0) StartCoroutine(SetAfterSeconds(result => dashBuffer = result, 0, 2));
+            if (dashBuffer == 0) StartCoroutine(SetAfterSeconds(result => dashBuffer = result, 0, 1.2f));
             dashBuffer++;
             StartCoroutine(Dash((Vector2)transform.position + (GetMouseDirection() * _dashPower.Value), 0.2f));
         }
-
-        public void StrafeLeft()
-        {
-            _rigidbody.AddForce(-Vector2.right * _strafePower.Value, ForceMode2D.Force);
-        }
-
-        public void StrafeRight()
-        {
-            _rigidbody.AddForce(Vector2.right * _strafePower.Value, ForceMode2D.Force);
-        }
-        public void UpdateDirection()
+        public void UpdateLookDirection()
         {
             transform.up = GetMouseDirection();
         }
