@@ -4,7 +4,8 @@
         <ui:VisualElement name="InputFields" style="flex-grow: 4; background-color: rgb(71, 62, 75); flex-direction: row;">
             <ui:VisualElement name="OutlineUI" class="Divider" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
                 <ui:VisualElement name="OutlinePreview" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UnityDefaultRuntimeTheme.tss?fileID=-3753015318093942961&amp;guid=a17ee1911787b724fbc2fe5112fc4077&amp;type=3#arrow-left&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                <ui:MinMaxSlider picking-mode="Ignore" label="Size" min-value="0" max-value="1" low-limit="0" high-limit="1" name="SizeVariation" binding-path="size" />
+                <ui:MinMaxSlider picking-mode="Ignore" label="Size" min-value="0.2" max-value="0.72" low-limit="0" high-limit="0.72" name="SizeVariation" binding-path="size" />
+                <ui:SliderInt picking-mode="Ignore" label="Detail" value="10" high-value="20" name="Detail" binding-path="detail" />
                 <ui:Slider picking-mode="Ignore" label="Smoothness" value="42" high-value="0.09" name="Smoothness" show-input-field="true" binding-path="smoothness" />
                 <ui:Slider picking-mode="Ignore" label="Point Gravity" value="42" high-value="1" name="PointGravity" show-input-field="true" binding-path="pointGravity" />
                 <ui:Button text="Generate Outline" display-tooltip-when-elided="true" name="GenerateOutline" class="Button" />
@@ -12,13 +13,13 @@
             <ui:VisualElement name="TextureUI" class="Divider" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
                 <ui:VisualElement name="TexturePreview" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UnityDefaultRuntimeTheme.tss?fileID=-1304905567622442630&amp;guid=a17ee1911787b724fbc2fe5112fc4077&amp;type=3#arrow-down@2x&apos;); -unity-background-scale-mode: scale-to-fit;" />
                 <ui:Slider picking-mode="Ignore" label="Light Angle" value="42" high-value="360" name="LightAngle" binding-path="lightAngle" />
-                <ui:FloatField label="Tiling" value="42.2" name="Tiling" />
+                <ui:FloatField label="Tiling" value="42.2" name="Tiling" binding-path="tiling" />
                 <ui:Vector2Field label="Offset" name="Offset" binding-path="offset" />
                 <ui:Button text="Apply Texture" display-tooltip-when-elided="true" name="ApplyTexture" class="Button" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="GenerateField" style="flex-grow: 1; background-color: rgb(71, 62, 75); justify-content: center;">
-            <ui:TextField picking-mode="Ignore" label="Name" value="filler text" name="SaveName" />
+            <ui:TextField picking-mode="Ignore" label="File Name" value="Asteroid" name="SaveName" binding-path="fileName" />
             <ui:Button text="Save" display-tooltip-when-elided="true" name="Save" class="Button" />
         </ui:VisualElement>
     </ui:VisualElement>

@@ -11,7 +11,7 @@ public class AstroidTextureGenerator: ScriptableObject
     float lightAngle = 0;
     int colorDivisions = 3;
     [SerializeField]
-    float tilingAmount = 1;
+    float tiling = 1;
     [SerializeField]
     Vector2 offset = new Vector2(0.5f, 0.5f);
     [SerializeField]
@@ -22,6 +22,10 @@ public class AstroidTextureGenerator: ScriptableObject
     }
     Texture2D tiledTexture;
     Texture2D resourceTexture;
+    public void OnValidate()
+    {
+        GenerateTexture();
+    }
     public void GenerateTexture()
     {
         if (!resourceTexture) { resourceTexture = Resources.Load<Texture2D>("AstroidGenerator/Rasterize/AstroidBumpMap"); }
@@ -36,8 +40,8 @@ public class AstroidTextureGenerator: ScriptableObject
             for (int y = 0; y < resolution; y++)
             {
 
-                Color col = resourceTexture.GetPixel((int)(readOffset.x + x * pixelConversion * tilingAmount) % resourceResolution,
-                                                     (int)(readOffset.y + y * pixelConversion * tilingAmount) % resourceResolution);
+                Color col = resourceTexture.GetPixel((int)(readOffset.x + x * pixelConversion * tiling) % resourceResolution,
+                                                     (int)(readOffset.y + y * pixelConversion * tiling) % resourceResolution);
                 Vector2 pixelPositionFromOrigo = new Vector2(x, y) - origo;
                 float dotProduct = Vector2.Dot(pixelPositionFromOrigo.normalized, lightVector);
                 float lerpValue = (1 + dotProduct) / 2;

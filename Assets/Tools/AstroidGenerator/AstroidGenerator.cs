@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+
+[CreateAssetMenu(fileName = "AsteroidGenerator", menuName = "ScriptableObjects/Asteroid")]
 public class AstroidGenerator : ScriptableObject
 {
     [SerializeField]
-    Vector2 size;
+    string fileName;
+    [SerializeField]
+    Vector2 size = new Vector2(0.2f,0.8f);
     [SerializeField, Range(0.0f, 20f)]
-    int detail;
+    int detail = 10;
     [SerializeField, Range(0.0f, 0.09f)]
     float smoothness = 0.02f;
-    private int bezierDetail = 20;
+    private int bezierDetail = 100;
     [SerializeField, Range(0.0f, 1.0f)]
-    float pointGravity;
+    float pointGravity = 0.5f;
     Vector3[] points;
     public Vector3[] Points 
     {
@@ -24,8 +28,6 @@ public class AstroidGenerator : ScriptableObject
     {
         get => workload;
     }
-
-
     Vector3[] unitPoints;
     Vector3[] splinePoints;
     RasterizeSpline rasterize;
@@ -34,25 +36,33 @@ public class AstroidGenerator : ScriptableObject
     {
         get => texGenerator;
     }
+    public void SaveToFile() 
+    {
+        TextureUtilities.WriteTextureToFile(workload,fileName, "Assets/Tools/AstroidGenerator/Sprites/");
+        TextureUtilities.SetDefualtImportSettings("Assets/Tools/AstroidGenerator/Sprites/" + fileName + ".png");
+    }
     //AstroidTextureGenerator texGen;
     [ExecuteInEditMode]
-    private void OnEnable()
+    public void Initialize()
     {
         rasterize = new RasterizeSpline();
         texGenerator = new AstroidTextureGenerator();
+        workload = new Texture2D(64, 64);
+        workload.filterMode = FilterMode.Point;
+        workload.Apply();
     }
     public void GenerateOutline() 
     {
         GeneratePoints();
         rasterize.Rasterize(points);
-        workload = rasterize.Workload;
+        Graphics.CopyTexture(rasterize.Workload,workload);
     }
     public void ApplyTexture()
     {
         if (rasterize.Workload == null) { return; }
-        texGenerator.GenerateTexture();
-        workload = rasterize.Workload;
+        Graphics.CopyTexture(rasterize.Workload, workload);
         TextureUtilities.FillWithTexture(workload,texGenerator.Workload,32,32,workload.GetPixel(32,32));
+        workload.Apply();
     }
     private void GeneratePoints()
     {

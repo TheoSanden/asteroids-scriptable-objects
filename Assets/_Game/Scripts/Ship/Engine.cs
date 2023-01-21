@@ -10,8 +10,7 @@ namespace Ship
     public class Engine : MonoBehaviour
     {
         [SerializeField] private FloatVariable _throttlePower;
-        [SerializeField] private AnimationCurve accell;
-
+        [SerializeField] private AnimationCurve dashCurve;
         [SerializeField] private FloatVariable _strafePower;
         [SerializeField] private FloatVariable _dashPower;
         [SerializeField] private float _throttlePowerSimple;
@@ -26,8 +25,13 @@ namespace Ship
             UpdateLookDirection();
             if (Input.GetAxis("Vertical") > 0)
             {
+                if (((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).magnitude < 10) { return; }
                 Throttle(1);
+
             }
+        }
+        private void Update()
+        {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Dash();
@@ -69,6 +73,7 @@ namespace Ship
         }
         private IEnumerator Dash(Vector2 position, float time)
         {
+            Debug.Log(Vector3.Distance(position,transform.position));
             dashing = true;
             Vector2 path = (Vector2)position - (Vector2)transform.position;
             Vector2 originalPosition = transform.position;
@@ -78,7 +83,7 @@ namespace Ship
             {
                 positionLastFrame = transform.position;
                 _rigidbody.velocity = Vector2.zero;
-                transform.position = (Vector3)originalPosition + (Vector3)(path * accell.Evaluate(timer / time));
+                transform.position = (Vector3)originalPosition + (Vector3)(path * dashCurve.Evaluate(timer / time));
                 timer += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
