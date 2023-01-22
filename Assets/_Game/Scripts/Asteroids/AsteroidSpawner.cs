@@ -15,6 +15,7 @@ namespace Asteroids
         private float _timer;
         private float _nextSpawnTime;
         private Camera _camera;
+        private AsteroidFactory factory;
 
         private enum SpawnLocation
         {
@@ -27,6 +28,7 @@ namespace Asteroids
         private void Start()
         {
             _camera = Camera.main;
+            factory = FindObjectOfType<AsteroidFactory>();
             Spawn();
             UpdateNextSpawnTime();
         }
@@ -66,7 +68,8 @@ namespace Asteroids
             {
                 var location = GetSpawnLocation();
                 var position = GetStartPosition(location);
-                Instantiate(_asteroidPrefab, position, Quaternion.identity);
+                Asteroid go = Instantiate(_asteroidPrefab, position, Quaternion.identity);
+                go.Initialize(factory.GetRandomAsteroid());
             }
         }
 

@@ -16,7 +16,10 @@ namespace Ship
         [SerializeField] private float _throttlePowerSimple;
         [SerializeField] private float _rotationPowerSimple;
         [SerializeField, Range(0.0f, 1.0f)] private float maxReverseAccelleration;
+        [SerializeField] private AudioClip dashClip;
+        [SerializeField] private DashTrail trail;
         private Rigidbody2D _rigidbody;
+        private AudioSource _audioSource;
         int dashBuffer = 0;
         bool dashing = false;
         bool additionalDash = false;
@@ -40,6 +43,8 @@ namespace Ship
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+            _audioSource = GetComponent<AudioSource>();
+            _audioSource.clip = dashClip;
         }
 
         public void Throttle(int sign)
@@ -73,7 +78,9 @@ namespace Ship
         }
         private IEnumerator Dash(Vector2 position, float time)
         {
-            Debug.Log(Vector3.Distance(position,transform.position));
+            trail.Play(this.transform,time,40);
+            _audioSource.clip = dashClip;
+            _audioSource.Play();
             dashing = true;
             Vector2 path = (Vector2)position - (Vector2)transform.position;
             Vector2 originalPosition = transform.position;

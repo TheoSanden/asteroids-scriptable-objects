@@ -38,8 +38,8 @@ public class AstroidGenerator : ScriptableObject
     }
     public void SaveToFile() 
     {
-        TextureUtilities.WriteTextureToFile(workload,fileName, "Assets/Tools/AstroidGenerator/Sprites/");
-        TextureUtilities.SetDefualtImportSettings("Assets/Tools/AstroidGenerator/Sprites/" + fileName + ".png");
+        TextureUtilities.WriteTextureToFile(workload,fileName, "Assets/Resources/AstroidGenerator/Sprites/");
+        TextureUtilities.SetDefualtImportSettings("Assets/Resources/AstroidGenerator/Sprites/" + fileName + ".png");
     }
     //AstroidTextureGenerator texGen;
     [ExecuteInEditMode]

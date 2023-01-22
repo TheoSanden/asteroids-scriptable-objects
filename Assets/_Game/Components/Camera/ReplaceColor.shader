@@ -60,7 +60,7 @@ Shader "Unlit/ReplaceColor"
                     //Float compare
                     half3 delta = abs(col.rgb - sCol.rgb);
                     float deltaLength = length(delta);
-                    if(deltaLength < 0.01)
+                    if(deltaLength < 0.1)
                     {
                         col = tex2D(_ReplacementLut, replacementUV);
                     }
