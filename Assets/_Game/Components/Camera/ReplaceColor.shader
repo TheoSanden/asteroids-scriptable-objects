@@ -53,9 +53,9 @@ Shader "Unlit/ReplaceColor"
             {
                 float2 replacementUV;
                 fixed4 col = tex2D(_MainTex, i.uv);
-                for(int i = 0; i < _LutWidth; i++)
+                for(int i = 0; i <= _LutWidth; i++)
                 {
-                    replacementUV = float2((float)i / _LutWidth, 0)- 0.001;
+                    replacementUV = float2(((_LutWidth - (float)i) / _LutWidth) - 0.1, 0);
                     fixed4 sCol = tex2D(_StandardLut, replacementUV);
                     //Float compare
                     half3 delta = abs(col.rgb - sCol.rgb);

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 
-[CustomEditor(typeof(PaletteGenerator))]
+/*[CustomEditor(typeof(PaletteGenerator))]
 public class PaletteGenerator_Editor : Editor
 {
     PaletteGenerator pg;
@@ -31,4 +31,4 @@ public class PaletteGenerator_Editor : Editor
     {
         pg = (PaletteGenerator)target;
     }
-}
+}*/

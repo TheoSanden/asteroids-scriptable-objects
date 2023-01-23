@@ -3398,7 +3398,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 0, b: 1, a: 0}
+  m_BackGroundColor: {r: 1, g: 0, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4468,18 +4468,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099200110}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 558bfd0ae7571f34da86344937f6cecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraBlitMaterial: {fileID: 0}
   color0: {r: 0.003921569, g: 0.003921569, b: 1, a: 1}
   color1: {r: 1, g: 0.003921569, b: 0.003921569, a: 1}
   color2: {r: 0.003921569, g: 1, b: 0.003921569, a: 1}
   color3: {r: 0.003921569, g: 1, b: 1, a: 1}
   color4: {r: 1, g: 1, b: 0.003921569, a: 1}
   color5: {r: 1, g: 0, b: 1, a: 1}
-  fileName: Lut_Test
+  fileName: Lut_testrnew
 --- !u!1 &1166780268
 GameObject:
   m_ObjectHideFlags: 0
