@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReplacementLut:
-        m_Texture: {fileID: 2800000, guid: 8610afb106ef472448d5f64e3a5c1db5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7169ba3130e5a3a43888cb46634797fd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _StandardLut:

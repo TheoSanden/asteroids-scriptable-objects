@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 240571da4cc62b04b8e5d93348a1edfd, type: 3}
-  m_Name: AsteroidGenerator
+  m_Script: {fileID: 11500000, guid: fbb86d834d861c340b25f022dffb6566, type: 3}
+  m_Name: ScoreSheet
   m_EditorClassIdentifier: 
-  fileName: Asteroid_29
-  size: {x: 0.34616706, y: 0.6309435}
-  detail: 14
-  smoothness: 0.0266
-  pointGravity: 0.485
-  workload: {fileID: 0}
+  scores: 

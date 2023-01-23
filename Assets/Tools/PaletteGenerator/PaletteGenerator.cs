@@ -18,7 +18,7 @@ public class PaletteGenerator : MonoBehaviour
     Texture2D tex = null;
     private void OnValidate()
     {
-        if(tex == null) { tex = new Texture2D(6, 1); }
+        if (tex == null) { tex = new Texture2D(6, 1); }
         Debug.Log(color0);
         tex.SetPixel(0, 0, color0);
         tex.SetPixel(1, 0, color1);
@@ -28,7 +28,7 @@ public class PaletteGenerator : MonoBehaviour
         tex.SetPixel(5, 0, color5);
         tex.Apply();
         tex.filterMode = FilterMode.Point;
-        cameraBlitMaterial.SetTexture("_ReplacementLut", tex);
+        //cameraBlitMaterial.SetTexture("_ReplacementLut", tex);
     }
     [ExecuteInEditMode]
     private void OnEnable()
@@ -50,7 +50,7 @@ public class PaletteGenerator : MonoBehaviour
     [ContextMenu("Generate")]
     public void Generate()
     {
-        if(fileName == "Lut_Standard") { Debug.LogWarning("Can't overload Standard Lut"); }
+        if (fileName == "Lut_Standard") { Debug.LogWarning("Can't overload Standard Lut"); }
         File.WriteAllBytes(path + fileName + ".png", tex.EncodeToPNG());
         SetImportSettings(path + fileName + ".png");
     }

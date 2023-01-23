@@ -78,7 +78,7 @@ namespace Ship
         }
         private IEnumerator Dash(Vector2 position, float time)
         {
-            trail.Play(this.transform,time,40);
+            trail.Play(this.transform, time, 40);
             _audioSource.clip = dashClip;
             _audioSource.Play();
             dashing = true;

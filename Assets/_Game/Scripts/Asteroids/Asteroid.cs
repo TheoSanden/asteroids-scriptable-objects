@@ -15,7 +15,7 @@ namespace Asteroids
         [SerializeField] Sprite sprite;
         public AsteroidSettings(Texture2D texture)
         {
-            this.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f),1);
+            this.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1);
             CalculateSize();
         }
         private void CalculateSize()
@@ -44,7 +44,7 @@ namespace Asteroids
     public class Asteroid : MonoBehaviour
     {
         [SerializeField] private ScriptableEventInt _onAsteroidDestroyed;
-        
+
         [Header("Config:")]
         [SerializeField] private float _minForce;
         [SerializeField] private float _maxForce;
@@ -67,12 +67,16 @@ namespace Asteroids
         private int _totalHitPoints;
         private int _hitPoints;
         bool isDestroying = false;
+
+        //Change This, have it somewhere else 
+        Score _scoreReference;
         public void Initialize(AsteroidSettings settings)
         {
+            _scoreReference = FindObjectOfType<Score>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _instanceId = GetInstanceID();
             _spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
-            this.settings = settings;         
+            this.settings = settings;
             _spriteRenderer.sprite = settings.Sprite;
             SetDirection();
             AddForce();
@@ -86,30 +90,31 @@ namespace Asteroids
         {
             if (string.Equals(other.tag, "Laser"))
             {
-               HitByLaser();
-               Destroy(other.gameObject);
+                HitByLaser();
+                Destroy(other.gameObject);
             }
         }
 
         private void HitByLaser()
         {
-            if (!isDestroying) 
+            if (!isDestroying)
             {
                 _audioSource.Play();
                 _hitPoints -= 1;
             }
-            if(_hitPoints <= 0) 
+            if (_hitPoints <= 0)
             {
+                if (!isDestroying) { StartCoroutine(DestroyAfterSound()); }
                 isDestroying = true;
-                StartCoroutine(DestroyAfterSound());
             }
         }
         IEnumerator DestroyAfterSound()
         {
-            while (_audioSource.isPlaying) 
+            while (_audioSource.isPlaying)
             {
                 yield return new WaitForEndOfFrame();
             }
+            _scoreReference.Modify(_totalHitPoints);
             Destroy(gameObject);
         }
         // TODO Can we move this to a single listener, something like an AsteroidDestroyer?
@@ -120,7 +125,7 @@ namespace Asteroids
                 Destroy(gameObject);
             }
         }
-        
+
         public void OnHitByLaserInt(int asteroidId)
         {
             if (_instanceId == asteroidId)
@@ -128,7 +133,7 @@ namespace Asteroids
                 Destroy(gameObject);
             }
         }
-        
+
         private void SetDirection()
         {
             var size = new Vector2(50f, 50f);
@@ -144,7 +149,7 @@ namespace Asteroids
         private void AddForce()
         {
             var force = Random.Range(_minForce, _maxForce);
-            _rigidbody.AddForce( _direction * force, ForceMode2D.Impulse);
+            _rigidbody.AddForce(_direction * force, ForceMode2D.Impulse);
         }
 
         private void AddTorque()
@@ -154,10 +159,10 @@ namespace Asteroids
 
             if (roll == 0)
                 torque = -torque;
-            
+
             _rigidbody.AddTorque(torque, ForceMode2D.Impulse);
         }
-        private void AddCollider() 
+        private void AddCollider()
         {
             _spriteRenderer.gameObject.AddComponent<PolygonCollider2D>();
         }
