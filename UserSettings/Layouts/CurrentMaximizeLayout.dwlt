@@ -234,9 +234,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 08720000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 2c4afbffd093fbff2694fbffcc94fbff7095fbffce95fbff7696fbff1897fbff74d8fbff1cd9fbff84dafbfffc26fcffae27fcff5028fcff9a0afeff2a0cfeff780cfeff380ffeff2610fefff014feff8a1cfeff14fbffff2cfbffffae4f0000a275000024770000f4820000
+      m_SelectedIDs: fea70000
+      m_LastClickedID: 43006
+      m_ExpandedIDs: 6c29f8ff262af8ff2036f8ff2c4afbffd093fbff2694fbffcc94fbff7095fbffce95fbff7696fbff1897fbff74d8fbff1cd9fbff84dafbfffc26fcffae27fcff5028fcff9a0afeff2a0cfeff780cfeff380ffeff2610fefff014feff8a1cfeff14fbffff2cfbffffae4f0000a275000024770000f4820000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -616,9 +616,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 10.623108, y: 78.67211, z: -491.42508}
+    m_Target: {x: 131.28087, y: 35.050232, z: 1.5381203}
     speed: 2
-    m_Value: {x: 10.623108, y: 78.67211, z: -491.42508}
+    m_Value: {x: 131.28087, y: 35.050232, z: 1.5381203}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -666,11 +666,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.07073931, y: -0.014361864, z: 0.0010426139, w: -0.9973335}
     speed: 2
-    m_Value: {x: -0.07073931, y: -0.014361865, z: 0.0010426139, w: -0.9973335}
+    m_Value: {x: -0.07074335, y: -0.014362685, z: 0.0010426735, w: -0.99739057}
   m_Size:
-    m_Target: 10
+    m_Target: 150.15594
     speed: 2
-    m_Value: 10
+    m_Value: 150.15594
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -768,23 +768,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Game/Scenes
+    - Assets/UI Toolkit/Palette UI
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Game/Scenes
+  - Assets/UI Toolkit/Palette UI
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\theo.sanden\Documents\Unity Repositories\Remote\Astroids_Utools
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d6510000
-    m_LastClickedID: 20950
-    m_ExpandedIDs: 00000000aa510000ae510000d8510000e6510000e8510000
+    scrollPos: {x: 0, y: 240}
+    m_SelectedIDs: 34770000
+    m_LastClickedID: 30516
+    m_ExpandedIDs: 00000000aa510000ae510000d8510000e6510000e851000034770000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -837,9 +837,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 08720000
-    m_LastClickedInstanceID: 29192
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: fea70000
+    m_LastClickedInstanceID: 43006
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000c6690000064f0000024f0000e24e00007e510000000000003c50000038500000d0500000c8500000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -920,8 +920,8 @@ MonoBehaviour:
     y: 0
     width: 615
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -966,7 +966,7 @@ MonoBehaviour:
     m_CachedPref: 195
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -1
+  m_LastInspectedObjectInstanceID: 43006
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
