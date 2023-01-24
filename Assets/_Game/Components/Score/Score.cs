@@ -16,7 +16,6 @@ public class Score : MonoBehaviour
     private void Start()
     {
         currentScore = 0;
-        OnGameEnd();
     }
     public void Modify(int amount)
     {

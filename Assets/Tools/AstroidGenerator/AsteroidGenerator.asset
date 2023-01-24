@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AsteroidGenerator
   m_EditorClassIdentifier: 
   fileName: Asteroid_29
-  size: {x: 0.34616706, y: 0.6309435}
-  detail: 14
-  smoothness: 0.0266
-  pointGravity: 0.485
+  size: {x: 0.2837736, y: 0.3607547}
+  detail: 11
+  smoothness: 0.0596
+  pointGravity: 0.548
   workload: {fileID: 0}

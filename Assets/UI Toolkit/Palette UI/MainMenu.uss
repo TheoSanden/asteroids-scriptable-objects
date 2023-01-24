@@ -1,0 +1,17 @@
+.ButtonDivider {
+    background-color: rgba(128, 183, 120, 0);
+    flex-grow: 1;
+    max-width: 60%;
+    min-width: 60%;
+}
+
+.PaletteButton {
+}
+
+.PaletteButton:hover {
+    scale: 1.3 1.3;
+}
+
+.PaletteButton:active {
+    scale: 1 1;
+}

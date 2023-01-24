@@ -2793,6 +2793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fda4cbf6e66a7841b1499b03a4f1bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  storage: {fileID: 11400000, guid: 2810a436f5a2f2d4dba64fbbb05715c0, type: 2}
   blitMat: {fileID: 2100000, guid: 039cbe6e7d0d78245a4cfee803748d15, type: 2}
 --- !u!213 &997526764
 Sprite:
@@ -3555,14 +3556,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1099200112}
-  - component: {fileID: 1099200113}
   m_Layer: 0
   m_Name: Palette Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1099200112
 Transform:
   m_ObjectHideFlags: 0
@@ -3578,26 +3578,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1099200113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1099200110}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 558bfd0ae7571f34da86344937f6cecd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraBlitMaterial: {fileID: 0}
-  color0: {r: 0.003921569, g: 0.003921569, b: 1, a: 1}
-  color1: {r: 1, g: 0.003921569, b: 0.003921569, a: 1}
-  color2: {r: 0.003921569, g: 1, b: 0.003921569, a: 1}
-  color3: {r: 0.003921569, g: 1, b: 1, a: 1}
-  color4: {r: 1, g: 1, b: 0.003921569, a: 1}
-  color5: {r: 1, g: 0, b: 1, a: 1}
-  fileName: Lut_testrnew
 --- !u!213 &1121453638
 Sprite:
   m_ObjectHideFlags: 0
@@ -4528,7 +4508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trailSprite: {fileID: 413716190, guid: 9579af2bc765e2743bf2ce946168d746, type: 3}
   trailMat: {fileID: 2100000, guid: 908b54bf443ef024d819caf6266df79d, type: 2}
-  backGround: {r: 0.21960786, g: 0.16078432, b: 0.18823531, a: 1}
+  storage: {fileID: 11400000, guid: 2810a436f5a2f2d4dba64fbbb05715c0, type: 2}
 --- !u!213 &1378188855
 Sprite:
   m_ObjectHideFlags: 0
@@ -7807,7 +7787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2970632031999273637, guid: ab39a3d0044af1d46b46c0ccbc24f3dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -97.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2970632031999273637, guid: ab39a3d0044af1d46b46c0ccbc24f3dd, type: 3}
       propertyPath: m_LocalPosition.y

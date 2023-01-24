@@ -5,9 +5,19 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class BlitMatToCamera : MonoBehaviour
 {
-    public Material blitMat; 
-    void OnRenderImage(RenderTexture src,RenderTexture tar)
+    [SerializeField] PaletteStorage storage;
+    public Material blitMat;
+
+    void UpdateBlitMaterial()
     {
-       Graphics.Blit(src, tar, blitMat);
+        blitMat.SetTexture("_ReplacementLut", storage.GetCurrentPallette().Palette);
+    }
+    private void Start()
+    {
+        storage.onCurrentPaletteChange += UpdateBlitMaterial;
+    }
+    void OnRenderImage(RenderTexture src, RenderTexture tar)
+    {
+        Graphics.Blit(src, tar, blitMat);
     }
 }

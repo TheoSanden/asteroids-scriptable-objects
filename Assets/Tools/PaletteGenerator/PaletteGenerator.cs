@@ -16,6 +16,7 @@ public class PaletteGenerator : MonoBehaviour
     string fileName;
     string path = "Assets/Resources/PaletteGenerator/";
     Texture2D tex = null;
+#if UNITY_EDITOR
     private void OnValidate()
     {
         if (tex == null) { tex = new Texture2D(6, 1); }
@@ -28,8 +29,9 @@ public class PaletteGenerator : MonoBehaviour
         tex.SetPixel(5, 0, color5);
         tex.Apply();
         tex.filterMode = FilterMode.Point;
-        //cameraBlitMaterial.SetTexture("_ReplacementLut", tex);
+        cameraBlitMaterial.SetTexture("_ReplacementLut", tex);
     }
+#endif
     [ExecuteInEditMode]
     private void OnEnable()
     {

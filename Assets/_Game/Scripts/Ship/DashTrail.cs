@@ -8,19 +8,26 @@ public class DashTrail : MonoBehaviour
     //Dictionary<int, GameObject> active = new Dictionary<int, GameObject>();
     [SerializeField] Sprite trailSprite;
     [SerializeField] Material trailMat;
-    [SerializeField] Color backGround;
+    Color startColor, endColor;
+    [SerializeField] PaletteStorage storage;
+    private void Start()
+    {
+        Texture2D currentPalette = storage.GetCurrentPallette().Palette;
+        endColor = currentPalette.GetPixel(5, 0);
+        startColor = currentPalette.GetPixel(3, 0);
+    }
     private GameObject Pop()
     {
-        if (pool.Count == 0) 
+        if (pool.Count == 0)
         {
             pool.Enqueue(CreateGo());
         }
         // active.Add(go.GetInstanceID(),go);
         return pool.Dequeue();
     }
-    private GameObject CreateGo() 
+    private GameObject CreateGo()
     {
-        GameObject go = Instantiate(new GameObject(),new Vector3(-1000,-1000,0),Quaternion.identity);
+        GameObject go = Instantiate(new GameObject(), new Vector3(-1000, -1000, 0), Quaternion.identity);
         SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
         Material mat = new Material(trailMat);
         sr.sortingOrder = -1;
@@ -31,9 +38,9 @@ public class DashTrail : MonoBehaviour
     }
     public void Play(Transform toFollow, float duration, int trailAmount)
     {
-        StartCoroutine(GenerateTrail(toFollow,duration,trailAmount));
+        StartCoroutine(GenerateTrail(toFollow, duration, trailAmount));
     }
-    private IEnumerator GenerateTrail(Transform toFollow,float duration,int trailAmount)
+    private IEnumerator GenerateTrail(Transform toFollow, float duration, int trailAmount)
     {
         List<GameObject> activeImages = new List<GameObject>();
         List<SpriteRenderer> activeRenderers = new List<SpriteRenderer>();
@@ -42,34 +49,34 @@ public class DashTrail : MonoBehaviour
         float instantiateTimer = 0;
         bool colBool = true;
         float totalLifeTime = 0.1f;
-        while(timer < duration) 
+        while (timer < duration)
         {
-            if(instantiateTimer == 0) 
+            if (instantiateTimer == 0)
             {
                 GameObject go = Pop();
                 go.transform.position = toFollow.position;
                 go.transform.rotation = toFollow.rotation;
                 activeImages.Add(go);
                 SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-                sr.material.SetColor("_Color",Color.white);
+                sr.material.SetColor("_Color", startColor);
                 colBool = !colBool;
                 activeRenderers.Add(sr);
                 lifeTimes.Add(0);
             }
-            for(int i = 0; i < activeImages.Count; i++)
+            for (int i = 0; i < activeImages.Count; i++)
             {
                 lifeTimes[i] += Time.deltaTime;
-                activeRenderers[i].material.SetFloat("_LifeTime",Mathf.Clamp01(lifeTimes[i]/totalLifeTime));
-                activeRenderers[i].material.SetColor("_Color",Color.Lerp(Color.white,backGround, Mathf.Clamp01(lifeTimes[i]/ totalLifeTime)));
+                activeRenderers[i].material.SetFloat("_LifeTime", Mathf.Clamp01(lifeTimes[i] / totalLifeTime));
+                activeRenderers[i].material.SetColor("_Color", Color.Lerp(startColor, endColor, Mathf.Clamp01(lifeTimes[i] / totalLifeTime)));
             }
             timer += Time.deltaTime;
-            instantiateTimer = (instantiateTimer > duration/trailAmount)? 0: instantiateTimer + Time.deltaTime;  
+            instantiateTimer = (instantiateTimer > duration / trailAmount) ? 0 : instantiateTimer + Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        for(int i = 0; i < activeImages.Count; i++) 
+        for (int i = 0; i < activeImages.Count; i++)
         {
-            activeImages[i].transform.position = new Vector2(-1000,-1000);
-            activeRenderers[i].color = Color.white;
+            activeImages[i].transform.position = new Vector2(-1000, -1000);
+            activeRenderers[i].color = startColor;
             pool.Enqueue(activeImages[i]);
         }
     }
