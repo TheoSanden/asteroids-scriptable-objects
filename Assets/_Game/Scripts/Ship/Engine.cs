@@ -106,7 +106,7 @@ namespace Ship
 
             return ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
         }
-        private IEnumerator SetAfterSeconds<T>(Action<T> value, T toSetTo, float time)
+        public static IEnumerator SetAfterSeconds<T>(Action<T> value, T toSetTo, float time)
         {
             yield return new WaitForSecondsRealtime(time);
             value(toSetTo);

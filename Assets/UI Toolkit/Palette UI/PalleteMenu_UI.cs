@@ -20,7 +20,7 @@ public class PalleteMenu_UI : MonoBehaviour
     {
         label.text = storage.GetCurrentPallette().Name;
         Color uiColor = storage.GetCurrentPallette().Palette.GetPixel(4, 0);
-        label.style.color = start.style.color = left.style.color = right.style.color = uiColor;
+        label.style.color = start.style.color = left.style.unityBackgroundImageTintColor = right.style.unityBackgroundImageTintColor = uiColor;
 
 
     }

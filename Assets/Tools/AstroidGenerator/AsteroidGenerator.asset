@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240571da4cc62b04b8e5d93348a1edfd, type: 3}
   m_Name: AsteroidGenerator
   m_EditorClassIdentifier: 
-  fileName: Asteroid_29
-  size: {x: 0.2837736, y: 0.3607547}
+  fileName: Asteroid_30
+  size: {x: 0.2837736, y: 0.46325034}
   detail: 11
   smoothness: 0.0596
   pointGravity: 0.548
