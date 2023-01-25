@@ -18,6 +18,7 @@ namespace Ship
         [SerializeField, Range(0.0f, 1.0f)] private float maxReverseAccelleration;
         [SerializeField] private AudioClip dashClip;
         [SerializeField] private DashTrail trail;
+        [SerializeField] private Invincibility invincibility;
         private Rigidbody2D _rigidbody;
         private AudioSource _audioSource;
         int dashBuffer = 0;
@@ -78,6 +79,7 @@ namespace Ship
         }
         private IEnumerator Dash(Vector2 position, float time)
         {
+            invincibility.Activate(time);
             trail.Play(this.transform, time, 40);
             _audioSource.clip = dashClip;
             _audioSource.Play();

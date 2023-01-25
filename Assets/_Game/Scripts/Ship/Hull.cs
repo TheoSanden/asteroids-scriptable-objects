@@ -13,14 +13,13 @@ namespace Ship
         [SerializeField] private Health _health;
         [SerializeField] private FloatVariable _maxImpactDamage;
         [SerializeField] private Rigidbody2D _rb;
-        bool invincible = false;
+        [SerializeField] private Invincibility invincibility;
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (string.Equals(other.gameObject.tag, "Asteroid") && !invincible)
+            if (string.Equals(other.gameObject.tag, "Asteroid"))
             {
                 _health.TakeDamage(CalculateImpactDamage(other));
-                invincible = true;
-                StartCoroutine(CoroutineHelper.SetAfterSeconds<bool>(result => invincible = result, false, 0.5f));
+                invincibility.Activate(1);
             }
         }
         private int CalculateImpactDamage(Collision2D other)
