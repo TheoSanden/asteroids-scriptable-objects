@@ -59,6 +59,10 @@ namespace Asteroids
         [SerializeField] private Transform _shape;
 
         private AsteroidSettings settings;
+        public AsteroidSettings Settings
+        {
+            get => settings;
+        }
         private Rigidbody2D _rigidbody;
         private SpriteRenderer _spriteRenderer;
         private AudioSource _audioSource;

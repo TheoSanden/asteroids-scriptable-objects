@@ -58,10 +58,10 @@ namespace Ship
             if (dashBuffer < 2 && dashing)
             {
                 additionalDash = true;
-                StartCoroutine(SetAfterSeconds(result => additionalDash = result, false, 0.3f));
+                StartCoroutine(CoroutineHelper.SetAfterSeconds(result => additionalDash = result, false, 0.3f));
                 return;
             }
-            if (dashBuffer == 0) StartCoroutine(SetAfterSeconds(result => dashBuffer = result, 0, 1.2f));
+            if (dashBuffer == 0) StartCoroutine(CoroutineHelper.SetAfterSeconds(result => dashBuffer = result, 0, 1.2f));
             dashBuffer++;
             StartCoroutine(Dash((Vector2)transform.position + (GetMouseDirection() * _dashPower.Value), 0.2f));
         }
@@ -105,11 +105,6 @@ namespace Ship
         {
 
             return ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
-        }
-        public static IEnumerator SetAfterSeconds<T>(Action<T> value, T toSetTo, float time)
-        {
-            yield return new WaitForSecondsRealtime(time);
-            value(toSetTo);
         }
     }
 }

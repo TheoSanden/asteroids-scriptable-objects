@@ -10,17 +10,23 @@ namespace Ship
         [SerializeField] private ScriptableEventIntReference _onHealthChangedEvent;
         [SerializeField] private IntReference _healthRef;
         [SerializeField] private IntObservable _healthObservable;
-        
+        [SerializeField] private Health _health;
+        [SerializeField] private FloatVariable _maxImpactDamage;
+        [SerializeField] private Rigidbody2D _rb;
+        bool invincible = false;
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (string.Equals(other.gameObject.tag, "Asteroid"))
+            if (string.Equals(other.gameObject.tag, "Asteroid") && !invincible)
             {
-                _healthObservable.ApplyChange(-1);
+                _health.TakeDamage(CalculateImpactDamage(other));
+                invincible = true;
+                StartCoroutine(CoroutineHelper.SetAfterSeconds<bool>(result => invincible = result, false, 0.5f));
             }
         }
-        private int CalculateImpact() 
+        private int CalculateImpactDamage(Collision2D other)
         {
-            return 0;
+            Asteroids.Asteroid asteroid = other.gameObject.GetComponent<Asteroids.Asteroid>();
+            return Mathf.CeilToInt(_maxImpactDamage.Value * asteroid.Settings.SizePercentage);
         }
     }
 }

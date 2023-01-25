@@ -24,8 +24,8 @@ namespace Ship
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
                 Shoot();
-                RapidFire();
-            
+            RapidFire();
+
         }
 
         private void Shoot()
@@ -40,7 +40,7 @@ namespace Ship
             {
                 if (rapidFireTimer > rapidFireFrequency) { rapidFireTimer = 0; }
                 if (rapidFireTimer == 0) { Shoot(); rapidFireShots++; }
-                if (rapidFireShots >= rapidFireShotAmount) { rapidFireShots = 0; coolDown = true; StartCoroutine(Engine.SetAfterSeconds(result => coolDown = result,false,coolDownTime)); }
+                if (rapidFireShots >= rapidFireShotAmount) { rapidFireShots = 0; coolDown = true; StartCoroutine(CoroutineHelper.SetAfterSeconds(result => coolDown = result, false, coolDownTime)); }
             }
             rapidFireTimer += Time.deltaTime;
         }
