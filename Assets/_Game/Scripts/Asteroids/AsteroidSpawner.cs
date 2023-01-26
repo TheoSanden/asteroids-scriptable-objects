@@ -11,7 +11,7 @@ namespace Asteroids
         [SerializeField] private float _maxSpawnTime;
         [SerializeField] private int _minAmount;
         [SerializeField] private int _maxAmount;
-        
+
         private float _timer;
         private float _nextSpawnTime;
         private Camera _camera;
@@ -63,7 +63,7 @@ namespace Asteroids
         private void Spawn()
         {
             var amount = Random.Range(_minAmount, _maxAmount + 1);
-            
+
             for (var i = 0; i < amount; i++)
             {
                 var location = GetSpawnLocation();
@@ -89,7 +89,7 @@ namespace Asteroids
         private Vector3 GetStartPosition(SpawnLocation spawnLocation)
         {
             var pos = new Vector3 { z = Mathf.Abs(_camera.transform.position.z) };
-            
+
             const float padding = 5f;
             switch (spawnLocation)
             {
@@ -112,7 +112,7 @@ namespace Asteroids
                 default:
                     throw new ArgumentOutOfRangeException(nameof(spawnLocation), spawnLocation, null);
             }
-            
+
             return _camera.ScreenToWorldPoint(pos);
         }
     }

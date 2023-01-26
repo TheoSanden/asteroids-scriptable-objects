@@ -68,5 +68,12 @@ public class BoundaryHandler : MonoBehaviour
         }
         if (InsideFrustrum() && !hasEnteredFrustrum) { hasEnteredFrustrum = true; }
     }
+    public bool IsInside(Vector3 position)
+    {
+        Vector3 center = frustrumBounds.center;
+        bool isInside = (position.x > center.x + frustrumBounds.extents.x) ? false : (position.x < center.x - frustrumBounds.extents.x) ? false : true;
+        isInside = (position.y > center.y + frustrumBounds.extents.y) ? false : (position.y < center.y - frustrumBounds.extents.y) ? false : true;
+        return isInside;
+    }
 
 }

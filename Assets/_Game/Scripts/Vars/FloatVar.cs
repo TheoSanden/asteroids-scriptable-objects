@@ -11,7 +11,7 @@ namespace DefaultNamespace.Vars
 
         [TextArea(3, 6)]
         [SerializeField] private string _developerDescription;
-        
+
         public float Value => _value;
 
         private float _currentValue;

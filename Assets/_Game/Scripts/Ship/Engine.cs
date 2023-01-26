@@ -19,6 +19,7 @@ namespace Ship
         [SerializeField] private AudioClip dashClip;
         [SerializeField] private DashTrail trail;
         [SerializeField] private Invincibility invincibility;
+        [SerializeField] private BoundaryHandler boundaryHandler;
         private Rigidbody2D _rigidbody;
         private AudioSource _audioSource;
         int dashBuffer = 0;
@@ -79,7 +80,7 @@ namespace Ship
         }
         private IEnumerator Dash(Vector2 position, float time)
         {
-            invincibility.Activate(time);
+            invincibility.Activate(time + 0.2f, true);
             trail.Play(this.transform, time, 40);
             _audioSource.clip = dashClip;
             _audioSource.Play();
