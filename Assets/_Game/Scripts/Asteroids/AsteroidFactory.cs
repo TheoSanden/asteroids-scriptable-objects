@@ -20,9 +20,9 @@ public class AsteroidFactory : MonoBehaviour
         foreach (Texture2D texture in textures)
         {
             settings.Add(new AsteroidSettings(texture));
-        }      
+        }
         settings.Sort((a, b) => a.SizePercentage.CompareTo(b.SizePercentage));
-        foreach(AsteroidSettings s in settings)
+        foreach (AsteroidSettings s in settings)
         {
             sortedSprites.Add(s.Sprite);
         }
@@ -33,7 +33,14 @@ public class AsteroidFactory : MonoBehaviour
     {
         float value = Random.Range(0.0f, 1.0f);
         value = sizeDistribution.Evaluate(value);
-        int index = Mathf.RoundToInt(value * (settings.Length-1));
+        int index = Mathf.RoundToInt(value * (settings.Length - 1));
+        return settings[index];
+    }
+    public AsteroidSettings GetAsteroid(float size)
+    {
+        float value = size;
+        value = sizeDistribution.Evaluate(value);
+        int index = Mathf.RoundToInt(value * (settings.Length - 1));
         return settings[index];
     }
 }

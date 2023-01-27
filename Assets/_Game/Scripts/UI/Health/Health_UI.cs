@@ -11,6 +11,7 @@ public class Health_UI : MonoBehaviour
                      healthDivisions = new List<GameObject>();
     [SerializeField] GameObject healthPip;
     [SerializeField] Ship.Health health;
+    [SerializeField] Variables.IntVariable maxHealth;
     private void Start()
     {
         Populate();
@@ -21,7 +22,7 @@ public class Health_UI : MonoBehaviour
     private void Populate()
     {
         healthPerPip = healthPip.transform.childCount;
-        int pipAmount = Mathf.CeilToInt((float)Ship.Health.MAX_HEALTH / healthPerPip);
+        int pipAmount = Mathf.CeilToInt((float)maxHealth.Value / healthPerPip);
         for (int i = 0; i < pipAmount; i++)
         {
             GameObject pip = GameObject.Instantiate(healthPip, this.transform);

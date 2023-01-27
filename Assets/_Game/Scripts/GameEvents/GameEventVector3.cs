@@ -13,12 +13,12 @@ namespace DefaultNamespace.GameEvents
         {
             _event?.Invoke(value);
         }
-        
+
         public void Register(Action<Vector3> onEvent)
         {
             _event += onEvent;
         }
-        
+
         public void Unregister(Action<Vector3> onEvent)
         {
             _event -= onEvent;

@@ -20,7 +20,7 @@ namespace Ship
             if (string.Equals(other.gameObject.tag, "Asteroid") && !invincibility.Invincible)
             {
                 _health.TakeDamage(CalculateImpactDamage(other));
-                _cameraControlls.InvokeScreenShake(other.gameObject.GetComponent<Asteroids.Asteroid>().Settings.SizePercentage * 8, 0.3f, 4);
+                _cameraControlls.ScreenSgake(other.gameObject.GetComponent<Asteroids.Asteroid>().Settings.SizePercentage * 8, 0.3f, 4);
                 invincibility.Activate(1);
             }
         }

@@ -9,6 +9,7 @@ public class OnHitFlash : MonoBehaviour
     [SerializeField] Material hitMaterial;
     [SerializeField] float hitDuration = 0.001f;
     Material baseMaterial;
+    [SerializeField] BoolVar invincibilityData;
 
     private SpriteRenderer sr;
     private void Start()
@@ -18,13 +19,16 @@ public class OnHitFlash : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (hitTag.Contains(collision.tag)) 
+        if (invincibilityData != null && invincibilityData.Data) return;
+        if (hitTag.Contains(collision.tag))
         {
             StartCoroutine(Hit());
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (invincibilityData != null && invincibilityData.Data) return;
+
         if (hitTag.Contains(collision.collider.tag))
         {
             StartCoroutine(Hit());

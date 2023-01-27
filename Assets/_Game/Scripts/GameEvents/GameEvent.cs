@@ -34,7 +34,7 @@ namespace DefaultNamespace.GameEvents
         {
             _listeners.Remove(listener);
         }
-        
+
         public void Unregister(Action onEvent)
         {
             _event -= onEvent;

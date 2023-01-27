@@ -4,20 +4,20 @@ namespace Ship
 {
     public class Health : MonoBehaviour
     {
+        private const int MIN_HEALTH = 0;
         public delegate void OnHealthChange();
         public event OnHealthChange onHealthChange;
-        [SerializeField] private int health = 0;
+        [SerializeField] private Variables.IntVariable _maxHealth;
+        private int health = 0;
         public int CurrentHealth
         {
             get => health;
         }
         private void Start()
         {
-            health = MAX_HEALTH;
+            health = _maxHealth.Value;
             onHealthChange?.Invoke();
         }
-        private const int MIN_HEALTH = 0;
-        public const int MAX_HEALTH = 16;
 
         public void TakeDamage(int damage)
         {

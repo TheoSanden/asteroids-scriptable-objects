@@ -3,7 +3,9 @@ guid: b54a0c38a76071d40a4be0a004080e5a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - onHitSound: {instanceID: 0}
+  - invincibilityData: {fileID: 11400000, guid: f546141778c41e0469ddf2f03ab38f3c, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

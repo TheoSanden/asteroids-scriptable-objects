@@ -60,7 +60,7 @@ namespace Asteroids
             return _timer >= _nextSpawnTime;
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             var amount = Random.Range(_minAmount, _maxAmount + 1);
 
@@ -69,10 +69,23 @@ namespace Asteroids
                 var location = GetSpawnLocation();
                 var position = GetStartPosition(location);
                 Asteroid go = Instantiate(_asteroidPrefab, position, Quaternion.identity);
-                go.Initialize(factory.GetRandomAsteroid());
+                go.Initialize(factory.GetRandomAsteroid(), Asteroid.SpawnType.Edge);
             }
         }
+        public void Spawn(float size)
+        {
+            var amount = Random.Range(_minAmount, _maxAmount + 1);
+            var location = GetSpawnLocation();
+            var position = GetStartPosition(location);
+            Asteroid go = Instantiate(_asteroidPrefab, position, Quaternion.identity);
+            go.Initialize(factory.GetAsteroid(size), Asteroid.SpawnType.Edge);
 
+        }
+        public void SpawnAtPosition(Vector3 position, float size)
+        {
+            Asteroid go = Instantiate(_asteroidPrefab, position, Quaternion.identity);
+            go.Initialize(factory.GetAsteroid(size), Asteroid.SpawnType.Radial);
+        }
         private static SpawnLocation GetSpawnLocation()
         {
             var roll = Random.Range(0, 4);

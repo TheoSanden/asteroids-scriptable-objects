@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfcb3938893c457ab4f6eed7027f48fe, type: 3}
-  m_Name: Health
+  m_Script: {fileID: 11500000, guid: 8e451f61bed405f47a1c9f217fc481f4, type: 3}
+  m_Name: OnDestroyAsteroid
   m_EditorClassIdentifier: 
-  _value: 16

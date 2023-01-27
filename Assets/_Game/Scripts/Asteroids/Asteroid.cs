@@ -2,6 +2,8 @@ using DefaultNamespace.ScriptableEvents;
 using System.Collections;
 using System;
 using UnityEngine;
+using DefaultNamespace.GameEvents;
+using UnityEngine.Events;
 using Variables;
 using Random = UnityEngine.Random;
 
@@ -43,7 +45,7 @@ namespace Asteroids
     [RequireComponent(typeof(Rigidbody2D))]
     public class Asteroid : MonoBehaviour
     {
-        [SerializeField] private ScriptableEventInt _onAsteroidDestroyed;
+        [SerializeField] public GameObjectEvent OnDestroyed;
 
         [Header("Config:")]
         [SerializeField] private float _minForce;
@@ -71,12 +73,11 @@ namespace Asteroids
         private int _totalHitPoints;
         private int _hitPoints;
         bool isDestroying = false;
-
-        //Change This, have it somewhere else 
-        Score _scoreReference;
-        public void Initialize(AsteroidSettings settings)
+        public enum SpawnType { Edge, Radial }
+        private SpawnType spawnType;
+        public void Initialize(AsteroidSettings settings, SpawnType spawnType)
         {
-            _scoreReference = FindObjectOfType<Score>();
+            this.spawnType = spawnType;
             _rigidbody = GetComponent<Rigidbody2D>();
             _instanceId = GetInstanceID();
             _spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
@@ -108,18 +109,9 @@ namespace Asteroids
             }
             if (_hitPoints <= 0)
             {
-                if (!isDestroying) { StartCoroutine(DestroyAfterSound()); }
+                if (!isDestroying) { OnDestroyed.Raise(gameObject); }
                 isDestroying = true;
             }
-        }
-        IEnumerator DestroyAfterSound()
-        {
-            while (_audioSource.isPlaying)
-            {
-                yield return new WaitForEndOfFrame();
-            }
-            _scoreReference.Modify(_totalHitPoints);
-            Destroy(gameObject);
         }
         // TODO Can we move this to a single listener, something like an AsteroidDestroyer?
         public void OnHitByLaser(IntReference asteroidId)
@@ -140,14 +132,22 @@ namespace Asteroids
 
         private void SetDirection()
         {
-            var size = new Vector2(50f, 50f);
-            var target = new Vector3
-            (
-                Random.Range(-size.x, size.x),
-                Random.Range(-size.y, size.y)
-            );
-
-            _direction = (target - transform.position).normalized;
+            switch (spawnType)
+            {
+                case SpawnType.Edge:
+                    var size = new Vector2(50f, 50f);
+                    var target = new Vector3
+                    (
+                        Random.Range(-size.x, size.x),
+                        Random.Range(-size.y, size.y)
+                    );
+                    _direction = (target - transform.position).normalized;
+                    break;
+                case SpawnType.Radial:
+                    float rad = Random.Range(0, Mathf.PI * 2);
+                    _direction = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad));
+                    break;
+            }
         }
 
         private void AddForce()

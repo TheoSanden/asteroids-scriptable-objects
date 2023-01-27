@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class CameraControlls : MonoBehaviour
 {
-    bool isShaking;
-    public void InvokeScreenShake(float intensity, float time, float frequency)
+    [ContextMenu("Test")]
+    void Test()
     {
-        if (isShaking) return;
-        isShaking = true;
-        StartCoroutine(ScreenShake(intensity, time, frequency));
+        LerpTo(EasingFunction.GetEasingFunction(EasingFunction.Ease.EaseInOutCubic), new Vector3(512, 0, transform.position.z), 3);
     }
-    IEnumerator ScreenShake(float intensity, float time, float frequency)
+    bool inTransition;
+    public void ScreenSgake(float intensity, float time, float frequency)
+    {
+        if (inTransition) return;
+        inTransition = true;
+        StartCoroutine(IScreenShake(intensity, time, frequency));
+    }
+    public void LerpTo(EasingFunction.Function easingFunction, Vector2 position, float time)
+    {
+        if (inTransition) return;
+        inTransition = true;
+        StartCoroutine(ILerpTo(easingFunction, position, time));
+    }
+    IEnumerator IScreenShake(float intensity, float time, float frequency)
     {
         float timer = 0;
         Vector3 originalPosition = this.transform.position;
@@ -26,6 +37,21 @@ public class CameraControlls : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         this.transform.position = originalPosition;
-        isShaking = false;
+        inTransition = false;
     }
+    IEnumerator ILerpTo(EasingFunction.Function easingFunction, Vector3 position, float time)
+    {
+        float timer = 0;
+        Vector3 originalPosition = this.transform.position;
+        Vector3 path = position - originalPosition;
+        while (timer < time)
+        {
+            transform.position = originalPosition + (path * easingFunction(0, 1, timer / time));
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = position;
+        inTransition = false;
+    }
+
 }
