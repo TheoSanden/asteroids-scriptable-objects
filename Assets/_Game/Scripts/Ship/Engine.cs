@@ -22,17 +22,22 @@ namespace Ship
         [SerializeField] private BoundaryHandler boundaryHandler;
         private Rigidbody2D _rigidbody;
         private AudioSource _audioSource;
+        private float breakForce = 2.5f;
         int dashBuffer = 0;
         bool dashing = false;
         bool additionalDash = false;
         private void FixedUpdate()
         {
+            //UpdateMovement();
             UpdateLookDirection();
             if (Input.GetAxis("Vertical") > 0)
             {
                 if (((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).magnitude < 10) { return; }
                 Throttle(1);
-
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                Break();
             }
         }
         private void Update()
@@ -48,13 +53,24 @@ namespace Ship
             _audioSource = GetComponent<AudioSource>();
             _audioSource.clip = dashClip;
         }
-
         public void Throttle(int sign)
         {
-
             _rigidbody.AddForce(transform.up * sign * _throttlePower.Value * GetReverseMultiplier(transform.up), ForceMode2D.Force);
         }
-        public void Dash()
+        private void Break()
+        {
+            if (_rigidbody.velocity.magnitude > 0)
+            {
+                _rigidbody.AddForce(-_rigidbody.velocity * breakForce, ForceMode2D.Force);
+            }
+        }
+        public void UpdateMovement()
+        {
+            Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            direction = (direction.magnitude > 1) ? direction.normalized : direction;
+            _rigidbody.AddForce(direction * _throttlePower.Value * GetReverseMultiplier(direction), ForceMode2D.Force);
+        }
+        private void Dash()
         {
             if (dashBuffer >= 2) { return; }
             if (dashBuffer < 2 && dashing)
