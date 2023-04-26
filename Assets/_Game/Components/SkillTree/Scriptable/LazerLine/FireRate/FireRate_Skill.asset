@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: FireRate_Skill
+  m_EditorClassIdentifier: Assembly-CSharp::Skill
+  tryUnlockEvent: {fileID: 11400000, guid: 8ef3caa1fe6ff4a448579761a06f2ae3, type: 2}
+  unlockEvent: {fileID: 11400000, guid: ca1f2db481a89ed48ab8f9dba8ae2efe, type: 2}
+  name: 1
+  unlockRequirments: 00000000
+  tiers: 5
+  cost: 60
