@@ -6,14 +6,20 @@ namespace Asteroids
 {
     public class AsteroidSpawner : MonoBehaviour
     {
-        [SerializeField] private Asteroid _asteroidPrefab;
-        [SerializeField] private float _minSpawnTime;
-        [SerializeField] private float _maxSpawnTime;
-        [SerializeField] private int _minAmount;
-        [SerializeField] private int _maxAmount;
+        [SerializeField] private Asteroid asteroidPrefab;
+        [SerializeField] private float minSpawnTime;
+        [SerializeField] private float maxSpawnTime;
+        [SerializeField] private int minAmount;
+        [SerializeField] private int maxAmount;
 
-        private float _timer;
-        private float _nextSpawnTime;
+        public bool Pause
+        {
+            get => pause;
+            set => pause = value;
+        }
+        bool pause = false;
+        private float timer;
+        private float nextSpawnTime;
         private Camera _camera;
         private AsteroidFactory factory;
 
@@ -32,7 +38,10 @@ namespace Asteroids
             Spawn();
             UpdateNextSpawnTime();
         }
+        private void Stop()
+        {
 
+        }
         private void Update()
         {
             UpdateTimer();
@@ -42,48 +51,48 @@ namespace Asteroids
 
             Spawn();
             UpdateNextSpawnTime();
-            _timer = 0f;
+            timer = 0f;
         }
 
         private void UpdateNextSpawnTime()
         {
-            _nextSpawnTime = Random.Range(_minSpawnTime, _maxSpawnTime);
+            nextSpawnTime = Random.Range(minSpawnTime, maxSpawnTime);
         }
 
         private void UpdateTimer()
         {
-            _timer += Time.deltaTime;
+            timer += Time.deltaTime;
         }
 
         private bool ShouldSpawn()
         {
-            return _timer >= _nextSpawnTime;
+            return (timer >= nextSpawnTime && !pause);
         }
 
         public void Spawn()
         {
-            var amount = Random.Range(_minAmount, _maxAmount + 1);
+            var amount = Random.Range(minAmount, maxAmount + 1);
 
             for (var i = 0; i < amount; i++)
             {
                 var location = GetSpawnLocation();
                 var position = GetStartPosition(location);
-                Asteroid go = Instantiate(_asteroidPrefab, position, Quaternion.identity);
+                Asteroid go = Instantiate(asteroidPrefab, position, Quaternion.identity);
                 go.Initialize(factory.GetRandomAsteroid(), Asteroid.SpawnType.Edge);
             }
         }
         public void Spawn(float size)
         {
-            var amount = Random.Range(_minAmount, _maxAmount + 1);
+            var amount = Random.Range(minAmount, maxAmount + 1);
             var location = GetSpawnLocation();
             var position = GetStartPosition(location);
-            Asteroid go = Instantiate(_asteroidPrefab, position, Quaternion.identity);
+            Asteroid go = Instantiate(asteroidPrefab, position, Quaternion.identity);
             go.Initialize(factory.GetAsteroid(size), Asteroid.SpawnType.Edge);
 
         }
         public void SpawnAtPosition(Vector3 position, float size)
         {
-            Asteroid go = Instantiate(_asteroidPrefab, position, Quaternion.identity);
+            Asteroid go = Instantiate(asteroidPrefab, position, Quaternion.identity);
             go.Initialize(factory.GetAsteroid(size), Asteroid.SpawnType.Radial);
         }
         private static SpawnLocation GetSpawnLocation()
